@@ -1,0 +1,68 @@
+2014.09.03 题3 奇数 2题 C++
+
+
+编一C程序，它能读入5个字符串（每个串长度都不大于80），依次判断前4个串
+
+是否为第5个串的子串，若是则输出YES；否则输出NO。
+
+（注：程序的可执行文件名必须是e2.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+#include<iostream.h>
+
+int substr(char *str1,char *str2)
+{//功能:该函数判断字符串str2 是否为 str1的子串
+	int n = strlen(str1);
+	int m = strlen(str2);
+	int j,k;
+	for(int i = 0;i<=n-m;i++)	//注意n-m 
+	{
+		j = i;
+		k = 0;
+		while (str2[k] == str1[j] && k<m) {
+			k++;j++;
+		}
+		if(k == m)	//说明str2已经遍历完,是str1的字串
+		return 1;
+	}
+	return 0;
+}
+
+
+void main()
+{
+
+	char *str[5];
+	int i = 0;
+	cout<<"请输入5个字符串（每个串长度都不大于80）："<<endl;
+	for(i = 0 ;i<5;i++)
+	{
+		cout<<"请输入字符串"<<i+1<<":"<<endl;
+		str[i] = new char[80];
+		cin>>str[i];
+	}
+	cout<<endl<<"判断前4个字符串是否为第5个串的子串："<<endl;
+	for(i = 0 ;i < 4;i++)
+	{
+		if(substr(str[4],str[i]))
+		{
+		
+			cout<<"字符串"<< i+1 <<" is Yes "<<endl;
+		}
+		else
+		{
+			cout<<"字符串"<< i+1 <<" is NO "<<endl;
+		}
+	}
+
+	for(i = 0 ;i<5;i++)
+	{
+		delete[] (str[i]);		//
+	}
+	
+	getchar();
+}

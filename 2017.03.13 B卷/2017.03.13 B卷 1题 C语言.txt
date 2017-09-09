@@ -1,0 +1,89 @@
+2017.03.13 B卷 1题 C语言
+
+
+编一C程序，它能根据输入的二叉树前序和中序序列来构造该二叉树，并能输出该二叉树的
+
+后序序列和该二叉树度为2的结点个数。（输入次序是：表示前序序列的字符串、表示中序
+
+序列的字符串。）
+
+（注：程序的可执行文件名必须是e1.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+#include<string.h>
+#define MAX 100
+
+typedef struct node
+{
+	char data;
+	struct node *lchild,*rchild;
+}TNode;
+
+void MkTree(char *in,int is,int ie,char *pre,int pres,int pree,TNode **r);
+void Postorder(TNode *r);
+int SumDegree(TNode *r);
+
+void main()
+{
+	char in[MAX],pre[MAX];
+	TNode *T;
+	printf("请输入前序序列，由字符串组成：\n");
+	gets(pre);
+	printf("请输入中序序列，由字符串组成：\n");
+	gets(in);
+	MkTree(in,0,strlen(in)-1,pre,0,strlen(pre)-1,&T);
+	printf("\n该二叉树的后序序列为：\n");
+	Postorder(T);
+	printf("\n\n该二叉树度为2的结点个数为：");
+	printf("%d\n",SumDegree(T));
+}
+
+void MkTree(char *in,int is,int ie,char *pre,int pres,int pree,TNode **r)
+{
+	int i;
+	if(is>ie||pres>pree)
+		*r=NULL;
+	else{
+		(*r)=(TNode *)malloc(sizeof(TNode));
+		(*r)->data=pre[pres];
+		for(i=is;i<=ie;i++){
+			if(in[i]==pre[pres]){
+				MkTree(in,is,i-1,pre,pres+1,pree+i-ie,&(*r)->lchild);
+				MkTree(in,i+1,ie,pre,pree+i-ie+1,pree,&(*r)->rchild);
+				break;
+			}
+			if(i>ie){
+				printf("输入错误！\n");
+				exit(9);
+			}
+		}
+	}
+}
+
+void Postorder(TNode *r)
+{
+	if(r!=NULL){
+		Postorder(r->lchild);
+		Postorder(r->rchild);
+		printf("%3c",r->data);
+	}
+}
+
+int SumDegree(TNode *r)
+{
+	if(r==NULL)
+		return 0;
+	else{
+		if(r->lchild&&r->rchild)
+			return 1+SumDegree(r->lchild)+SumDegree(r->rchild);
+		else{
+			if(r->lchild&&!r->rchild)
+				return SumDegree(r->lchild);
+			else
+				return SumDegree(r->rchild);
+		}
+	}
+}

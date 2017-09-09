@@ -1,0 +1,48 @@
+2017.03.13 A卷 2题   C++
+
+
+编一C程序，它能对输入的一串整数（不多于1000个，以-9999为结束标记），进行直接插入排序（从小到大排序），
+
+输出排序结果和所用关键字比较次数。（输入时，两个相邻的整数用空格隔开。）
+
+（注：程序的可执行文件名必须是e2.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+#include<iostream.h>
+#define MAX 1000
+
+int a[MAX]={-9999};
+int insertsort(int n)
+{
+	int i,j,temp,count=1;
+	for(i=1;i<n;i++){
+		if(a[i]<a[i-1]&&count++){
+			temp=a[i];
+			j=i-1;
+			do{
+				a[j+1]=a[j];
+				j--;
+			}while(temp<a[j]&&count++);
+			a[j+1]=temp;
+		}
+	}
+	return count -1;
+}
+
+void main()
+{
+	int i,temp,n=0;
+	cout<<"请输入一串整数（用空格隔开，以-9999为结束标记）："<<endl;
+	cin>>temp;
+	while(temp!=-9999){
+		a[n++]=temp;
+		cin>>temp;
+	}
+	int count=insertsort(n);
+	cout<<endl<<"使用直接插入排序后的结果为："<<endl;
+	for(i=0;i<n;i++)
+		cout<<a[i]<<" ";
+	cout<<endl<<endl<<"所用关键字的比较次数为："<<count<<endl;
+}
+
+

@@ -1,0 +1,87 @@
+2016.09.13 B卷 1题   C++    （注：此题运行后有一个ERROR，但无碍）
+
+
+编一C程序，它能根据输入的字符（字母或*）序列来构造一棵二叉树，并能输出该二叉树后序和中序序列，
+
+计算并输出该二叉树度数为2的结点的个数。输入是该二叉树经扩充后的结点前序遍历序列，扩充方法是：
+
+对无左孩子的结点，增加一个标记为*的左孩子的结点；对无右孩子的结点，增加一个标记为*的右孩子的
+
+结点。例如，若要构造的二叉树为    A    时，输入为AB*D**CE***。
+                                 / \
+                                B   C
+                                \   /
+                                 D E
+
+（注：程序的可执行文件名必须是e1.exe，存于你的账号或其debug目录下，否则无成绩）
+
+#include<iostream.h>
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+typedef struct node
+{
+	char b;
+	struct node *lchild,*rchild;
+}TNode;
+
+void Preorder(TNode **r)
+{
+	char ch;
+	cin>>ch;
+	if(ch=='*')
+		*r=NULL;
+	else{
+		*r=new TNode;
+		(*r)->b=ch;
+		Preorder(&(*r)->lchild);
+		Preorder(&(*r)->rchild);
+	}
+}
+
+void Postorder(TNode *r)
+{
+	if(r){
+		Postorder(r->lchild);
+		Postorder(r->rchild);
+		cout<<r->b;
+	}
+}
+
+void Inorder(TNode *r)
+{
+	if(r){
+		Inorder(r->lchild);
+		cout<<r->b;
+		Inorder(r->rchild);
+	}
+}
+
+int SumDegree(TNode *r)
+{
+	if(r==NULL)
+		return 0;
+	if(r->lchild==NULL&&r->rchild==NULL)
+		return 0;
+	if(r->lchild==NULL&&r->rchild!=NULL)
+		return SumDegree(r->rchild);
+	if(r->lchild!=NULL&&r->rchild==NULL)
+		return SumDegree(r->lchild);
+	else{
+		if(r->lchild&&r->rchild)
+			return 1+SumDegree(r->lchild)+SumDegree(r->rchild);
+	}
+}
+
+void main()
+{
+	TNode *r;
+	cout<<"请输入前序序列："<<endl;
+	Preorder(&r);
+	cout<<endl<<"该二叉树的后序序列为："<<endl;
+	Postorder(r);
+	cout<<endl<<endl<<"该二叉树的中序序列为："<<endl;
+	Inorder(r);
+	cout<<endl<<endl<<"该二叉树度数为2的结点个数为："<<SumDegree(r)<<endl;
+}

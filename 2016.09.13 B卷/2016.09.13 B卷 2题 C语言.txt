@@ -1,0 +1,167 @@
+2016.09.13 B卷 2题 C语言   （注：此答案为两个数组的差集、并集、交集）
+
+
+编一C程序，它能读入两组整数（每组整数都以-9999为结束标记，个数都不大于1000），并以
+
+从小到大的次序输出在第一组整数中而且不在第二组整数中的所有整数（同一个整数不能输出
+
+两次）。（输入时，两个相邻的整数用空格隔开。）
+
+（注：程序的可执行文件名必须是e2.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+
+#include<stdio.h>
+
+//冒泡排序（从小到大）
+void BubbleSort(int r[],int n) //r要排序的数组，n数组的元素个数
+{
+	int i,j,k;
+	int exchange;
+	for(i=0;i<n-1;i++){
+		exchange=0;
+		for(j=n-2;j>=i;j--){
+			if(r[j+1]<r[j]){
+				k=r[j+1];
+				r[j+1]=r[j];
+				r[j]=k;
+				exchange=1;
+			}
+		}
+		if(!exchange)  //表示已经是有顺序的，退出循环。
+			break;
+	}
+}
+
+//消除数组r[]中的重复元素，并返回消除后数组剩余的元素个数
+int DisaSameYs(int r[],int n)  //n数组的元素个数
+{
+	int w,x,y;
+	for(w=0;w<=n-1;w++){
+		for(x=w+1;x<=n-1;x++){
+			if(r[w]==r[x]){
+				n--;
+				for(y=x;y<=n-1;y++)
+					r[y]=r[y+1];    //将x后面的数前移，将x覆盖
+				x--;
+			}
+		}
+	}
+	return n;
+}
+
+//求交集
+int JiaoJi(int m[],int n[],int l[],int countm,int countn)
+{
+	int i,j,k=0;
+	for(i=0;i<countm;i++){
+		for(j=0;j<countn;j++){
+			if(n[j]==m[i]){		
+				l[k++]=m[i];
+				break;
+			}
+		}
+	}
+	return k;
+}
+
+//求差集
+int cha(int m[],int n[],int l[],int countaa,int countbb)
+{
+	int i,j,k=0,exch;
+	for(i=0;i<countaa;i++){
+		exch=0;  //0
+		for(j=0;j<countbb;j++){
+			if(m[i]==n[j]){
+				exch=1;
+				break;
+			}
+		}
+		if(exch==0)   
+			l[k++]=m[i];
+	}
+	return k;
+}
+
+//求并集
+int BingJi(int m[],int n[],int l[],int countaa,int countbb)
+{
+	int i=0,j=0,k=0;
+	while(i<countaa&&j<countbb){
+		if(m[i]<n[j]){   
+			l[k]=m[i];
+			k++;
+			i++;
+		}
+		else if(m[i]>n[j]){ 
+			l[k]=n[j];
+			k++;
+			j++;
+		}
+		else{		
+			l[k]=m[i];
+			k++;
+			i++;
+			j++;
+		}
+	}
+	if(i>countaa-1){   
+		while(j<=countbb-1){
+			l[k]=n[j];
+			j++;
+			k++;
+		}
+	}
+	if(j>countbb-1){   
+	while(i<=countaa-1){
+			l[k]=m[i];
+			i++;
+			k++;
+		}
+	}
+	return k;    //
+}
+
+void main()
+{
+	int a[1000],b[1000],c[2000];
+	int i,j,k,countA,countB,countC,exchange=0;
+	printf("请输入一串整数到数组a，用空格隔开，以-9999为结束标记：\n");
+	for(i=0;i<1000;i++){
+		scanf("%d",&a[i]);
+		if(a[i]==-9999)
+			break;
+	}
+	countA=i;
+	BubbleSort(a,countA);
+	countA=DisaSameYs(a,countA);
+
+	printf("\n请输入一串整数到数组b，用空格隔开，以-9999为结束标记：\n");
+	for(j=0;j<1000;j++){
+		scanf("%d",&b[j]);
+		if(b[j]==-9999)
+			break;
+	}
+	countB=j;
+	BubbleSort(b,countB);
+	countB=DisaSameYs(b,countB);
+
+	countC=cha(a,b,c,countA,countB);
+	printf("\n--------差集--------\n");
+	for(i=0;i<=countC-1;i++)
+		printf("%d ",c[i]);
+	printf("\n");
+
+	countC=BingJi(a,b,c,countA,countB);
+	printf("\n--------并集--------\n");
+	for(j=0;j<=countC-1;j++)
+		printf("%d ",c[j]);
+	printf("\n");
+
+	countC=JiaoJi(a,b,c,countA,countB);
+	printf("\n--------交集--------\n");
+	for(k=0;k<=countC-1;k++)
+		printf("%d ",c[k]);
+	printf("\n");
+	getchar();
+}

@@ -1,0 +1,35 @@
+2017.03.13 A卷 2题   C语言
+
+#include<stdio.h>
+#define MAX 1000
+ 
+void main()
+{
+	int i=1,j,n,t=0,a[MAX];
+	printf("请输入一串整数，个数必须在[1...%d]之间，以-9999为结束标记：\n",MAX);
+	do{
+		scanf("%d",&a[i]);
+		if(a[i]==-9999)
+			break;
+		i++;
+	}while(9);
+	n=i-1;
+	for(i=2;i<=n;i++){
+		if(a[i]<a[i-1]){
+			a[0]=a[i];
+			j=i-1;
+			do{
+				a[j+1]=a[j];
+				j--;
+				t++;
+			}while(a[0]<a[j]);
+			a[j+1]=a[0];
+		}
+	}
+	printf("\n使用直接插入排序后的结果为：\n");
+	for(i=1;i<=n;i++)
+		printf("%-4d",a[i]);
+	printf("\n");
+	printf("\n所用的关键字比较次数为：%d\n",t);
+	scanf("%d",&i);
+}

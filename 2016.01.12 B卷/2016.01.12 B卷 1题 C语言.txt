@@ -1,0 +1,116 @@
+2016.01.12 B卷 1题 C语言   
+
+
+编一C程序，它能根据输入的二叉树中序和后序序列来构造该二叉树，并能输出该二叉树
+
+的前序序列和该二叉树的叶结点的个数并能判断该二叉树是否为排序二叉树（若是输出
+
+Yes；否则输出No）。（输入次序是：表示中序序列的字符串、表示后序序列的字符串。）
+
+（注：程序的可执行文件名必须是e1.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<malloc.h>
+#include<string.h>
+#define MAX 100
+
+typedef struct node
+{
+	char data;
+	struct node *lchild,*rchild;
+}TNode;
+void MkTree(char *in,int is,int ie,char *post,int posts,int poste,TNode **r );
+void Preorder( TNode *r );
+int Leaf( TNode *r );
+int JudgeBintree( TNode *r );
+void main( )
+{
+	char in[MAX],post[MAX];
+	TNode *T;
+	printf("请输入中序序列，由字符串组成:\n");
+	gets(in);
+	printf("请输入后序序列,由字符串组成:\n");
+	gets(post);
+	MkTree(in,0,strlen(in)-1,post,0,strlen(post)-1,&T );
+	printf("\n该二叉树的前序序列为：\n");
+	Preorder(T);
+	printf("\n该二叉树的叶结点个数是:");
+	printf("%d\n",Leaf(T) );
+	printf("该二叉树是否为排序二叉树：");
+	if(JudgeBintree( T ))
+		printf("Yes\n");
+	else
+		printf("No\n");
+}
+
+void MkTree(char *in,int is,int ie,char *post,int posts,int poste,TNode **r)
+{
+	int i;
+	if( is>ie||posts>poste )
+		*r=NULL;
+	else{
+		(*r)=(TNode* )malloc(sizeof(TNode) );
+		(*r)->data=post[poste];
+		for(i=is;i<=ie;i++)
+		{
+			if( in[i]==post[poste] )
+			{
+				MkTree(in,is,i-1,post,posts,poste+i-ie-1,&(*r)->lchild);
+				MkTree(in,i+1,ie,post,poste+i-ie,poste-1,&(*r)->rchild);
+				break;
+			}
+			if( i>ie )
+			{
+				printf("Error!,输入有误\n");
+				exit(9);
+			}
+		}
+	}
+}
+void Preorder( TNode *r )
+{
+	if( r!=NULL )
+	{
+		printf("%3c",r->data);
+		Preorder(r->lchild);
+		Preorder(r->rchild);
+	}
+}
+int Leaf( TNode *r )
+{
+	if( r==NULL )
+		return 0;
+	if( r->lchild==NULL&&r->rchild==NULL )
+		return 1;
+	else
+		return Leaf(r->lchild)+Leaf(r->rchild);
+}
+
+int JudgeBintree( TNode *r )
+{
+	if( r==NULL||(r->lchild==NULL&&r->rchild==NULL) )
+		return 1;
+	if(r->lchild&&r->rchild==NULL)
+	{
+		if( r->data>r->lchild->data )
+			return JudgeBintree( r->lchild );
+		else
+			return 0;
+	}
+	if(r->rchild&&r->lchild==NULL )
+	{
+		if( r->data<r->rchild->data )
+			return JudgeBintree( r->rchild );
+		else
+			return 0;
+	}
+	if( r->data>r->lchild->data&&r->data<r->rchild->data)
+		return JudgeBintree( r->lchild )+JudgeBintree( r->rchild );
+
+	else
+		return 0;
+		
+}

@@ -1,0 +1,84 @@
+2016.01.12 A卷 2题 C语言
+
+编一C程序，它能根据输入来构造一棵二叉树，并能输出该二叉树后序和中序序列，计算并输出该二叉树的深度（高度）。
+
+输入是该二叉树各结点按前序遍历次序，并且若某个结点无左子女，则紧跟其后是一个‘.’，若亦无右子女，则也输入
+
+一个‘.’。例如，构造的二叉树为 A  时，输入为AB.D..CE...  。
+                               / \
+                              B   C
+                              \   /
+                               D  E
+
+（注：程序的可执行文件名必须是e2.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+#include<stdio.h>
+#include<stdlib.h>
+#include<iostream.h>
+
+typedef struct node 
+{
+	char data;
+	struct node *lchild;
+	struct node *rchild;
+}TNode;
+
+void CreateTree(TNode **r);
+void Postorder(TNode *r);
+void Midorder(TNode *r);
+int Height(TNode *r);
+
+void main( )
+{
+	TNode *T;
+	printf("请输入前序序列：\n");
+	CreateTree(&T);
+	printf("\n后序遍历的结果是:\n");
+	Postorder(T);
+	printf("\n中序遍历的结果是:\n");
+	Midorder(T);
+	printf("\n该二叉树的高度为:%d\n",Height(T));
+}
+void CreateTree( TNode **r )
+{
+	char ch;
+	if ((ch=getchar( ))=='.')
+		*r=NULL;
+	else{
+		*r=(TNode *)malloc(sizeof(TNode));
+		(*r)->data=ch;
+		CreateTree(&(*r)->lchild);
+		CreateTree(&(*r)->rchild);
+	}
+}
+void Postorder(TNode *r)
+{
+	if(r)
+	{
+		Postorder(r->lchild);
+		Postorder(r->rchild);
+		printf("%3c",r->data);
+	}
+}
+void Midorder(TNode *r)
+{
+	if( r )
+	{
+		Midorder(r->lchild);
+		printf("%3c",r->data);
+		Midorder(r->rchild);
+	}
+}
+
+int Height(TNode *r)
+{
+	int h1,h2;
+	if(r==NULL)
+		return 0;
+	else{
+		h1=Height(r->lchild);
+		h2=Height(r->rchild);
+		return 1+(h1>h2?h1:h2);
+	}
+}

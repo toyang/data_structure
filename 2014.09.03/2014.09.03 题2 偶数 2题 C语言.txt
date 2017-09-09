@@ -1,0 +1,143 @@
+2014.09.03 B卷 2题 C语言     (注：答案也把后序输出了)
+
+
+编一C程序，它能把读入的整数依次插入到一个初始为空的二叉排序中，一直读到-9999
+
+为止（-9999不插入该二叉排序树）。输出该二叉排序树的前序序列、中序序列及该二叉
+
+树的叶结点个数。（输入时，两个相邻的整数用空格隔开）。
+
+（注：程序的可执行文件名必须是e2.exe，存于你的账号或其debug目录下，否则无成绩）
+
+
+#include<stdio.h>
+#include<string.h>
+#include<malloc.h>
+#include<stdlib.h>
+#include<iostream.h>
+#define MAX  1000
+
+typedef struct node 
+{
+	int data;
+	struct node *lchild,*rchild;
+}BinSortTree;
+
+void MkTree(BinSortTree **r,int a[ ],int size);
+void InsertTree(BinSortTree **r,int d);
+void InputData(int a[ ],int *size);
+void Preorder(BinSortTree *r);
+void Midorder(BinSortTree *r);
+void Postorder(BinSortTree *r);
+int Leaf(BinSortTree *r);
+
+void main( )
+{
+	BinSortTree *T=NULL;
+	int a[MAX],size_a=0;
+	InputData(a,&size_a);
+	MkTree(&T,a,size_a);
+	printf("\n前序遍历的结果是\n");
+	Preorder(T);
+	printf("\n中序遍历的结果是\n");
+	Midorder(T);
+	printf("\n后序遍历的结果是\n");
+	Postorder(T);
+	printf("\n该二叉树的叶结点个数是：");
+	printf("%d\n",Leaf(T));
+	
+}
+void MkTree( BinSortTree **r,int a[ ],int size )
+{
+	int i;
+	for( i=0;i<size;i++ )
+		InsertTree(r,a[i]);
+}
+void InsertTree( BinSortTree **r,int d)
+{
+	BinSortTree *p,*pre;
+	p=*r;
+	while(p)
+	{
+		if( d==p->data)
+			return;
+		if( d<p->data)
+		{
+			pre=p;
+			p=p->lchild;
+		}
+		else{
+			pre=p;
+			p=p->rchild;
+		}
+	}
+	p=(BinSortTree *)malloc(sizeof(BinSortTree) );
+	p->data=d;
+	p->lchild=p->rchild=NULL;
+	if( *r==NULL )
+		*r=p;
+	else{
+		if( pre->data>d)
+			pre->lchild=p;
+		else
+			pre->rchild=p;
+	}
+}
+
+void InputData( int a[ ],int *size )
+{
+	int d;
+	printf("请输入一串整数，以-9999为结束：\n");
+	do{
+		scanf("%d",&d);
+		if(d==-9999 )
+			break;
+		a[(*size)++]=d;
+	}while(1);
+}
+
+void Preorder( BinSortTree *r )
+{
+	if( r )
+	{
+		printf("%3d",r->data);
+		Preorder(r->lchild);
+		Preorder(r->rchild);
+	}
+}
+
+void Midorder( BinSortTree *r)
+{
+	if( r )
+	{
+		Midorder( r->lchild);
+		printf("%3d",r->data);
+		Midorder( r->rchild);
+	}
+}
+
+void Postorder(BinSortTree *r)
+{
+	if( r )
+	{
+		Postorder(r->lchild);
+		Postorder(r->rchild);
+		printf("%3d",r->data);
+	}
+}
+
+int Leaf(BinSortTree *r)
+{
+	if(r==NULL)
+		return 0;
+	if(r->lchild==NULL&&r->rchild==NULL)
+		return 1;
+	else
+		return Leaf(r->lchild)+Leaf(r->rchild);
+}
+		
+
+
+
+
+	
