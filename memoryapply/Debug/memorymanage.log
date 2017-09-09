@@ -1,0 +1,41 @@
+﻿生成启动时间为 2014/5/15 15:17:18。
+     1>项目“C:\Users\Administrator\Desktop\实践\操作系统\memoryapply\memorymanage.vcxproj”在节点 2 上(build 个目标)。
+     1>InitializeBuildStatus:
+         正在创建“Debug\memorymanage.unsuccessfulbuild”，因为已指定“AlwaysCreate”。
+       ClCompile:
+         所有输出均为最新。
+         F:\visual\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"StdAfx.h" /Fp"Debug\memorymanage.pch" /Fo"Debug\\" /Fd"Debug\vc100.pdb" /Gd /TP /analyze- /errorReport:prompt memorymanage.cpp
+         memorymanage.cpp
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(17): warning C4091: “typedef ”: 没有声明变量时忽略“atab”的左侧
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(51): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 f:\visual\vc\include\stdio.h(304) : 参见“scanf”的声明
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(53): warning C4996: 'fopen': This function or variable may be unsafe. Consider using fopen_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 f:\visual\vc\include\stdio.h(234) : 参见“fopen”的声明
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(61): warning C4996: 'fscanf': This function or variable may be unsafe. Consider using fscanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 f:\visual\vc\include\stdio.h(253) : 参见“fscanf”的声明
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(71): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 f:\visual\vc\include\stdio.h(304) : 参见“scanf”的声明
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(128): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 f:\visual\vc\include\stdio.h(304) : 参见“scanf”的声明
+     1>c:\users\administrator\desktop\实践\操作系统\memoryapply\memorymanage.cpp(164): warning C4996: 'scanf': This function or variable may be unsafe. Consider using scanf_s instead. To disable deprecation, use _CRT_SECURE_NO_WARNINGS. See online help for details.
+                 f:\visual\vc\include\stdio.h(304) : 参见“scanf”的声明
+       ManifestResourceCompile:
+         所有输出均为最新。
+       Link:
+         F:\visual\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Administrator\Desktop\实践\操作系统\memoryapply\Debug\memorymanage.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /ManifestFile:"Debug\memorymanage.exe.intermediate.manifest" /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /DEBUG /PDB:"C:\Users\Administrator\Desktop\实践\操作系统\memoryapply\Debug\memorymanage.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Administrator\Desktop\实践\操作系统\memoryapply\Debug\memorymanage.lib" /MACHINE:X86 Debug\memorymanage.exe.embed.manifest.res
+         Debug\memorymanage.obj
+         Debug\stdafx.obj
+       Manifest:
+         C:\Program Files (x86)\Microsoft SDKs\Windows\v7.0A\bin\mt.exe /nologo /verbose /out:"Debug\memorymanage.exe.embed.manifest" /manifest Debug\memorymanage.exe.intermediate.manifest
+         所有输出均为最新。
+       LinkEmbedManifest:
+         所有输出均为最新。
+         memorymanage.vcxproj -> C:\Users\Administrator\Desktop\实践\操作系统\memoryapply\Debug\memorymanage.exe
+       FinalizeBuildStatus:
+         正在删除文件“Debug\memorymanage.unsuccessfulbuild”。
+         正在对“Debug\memorymanage.lastbuildstate”执行 Touch 任务。
+     1>已完成生成项目“C:\Users\Administrator\Desktop\实践\操作系统\memoryapply\memorymanage.vcxproj”(build 个目标)的操作。
+
+生成成功。
+
+已用时间 00:00:01.49
