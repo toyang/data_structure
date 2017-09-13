@@ -89,7 +89,7 @@ void runbest() {
         applytab[aindex].flag = 0;
         aindex++;
 
-        if (freetab[i].len == flen) {
+        if (freetab[i].len == flen) {//如果空闲内存刚好分配完了，则从空闲表里移除
             for (int n = i + 1; n < index; n++) {
                 memcpy(&freetab[n - 1], &freetab[n], sizeof(tab));
             }

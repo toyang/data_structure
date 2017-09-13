@@ -3,7 +3,9 @@
 # include <string.h>
 # include <stdlib.h>
 # include <iostream.h>
-
+/**
+同 虚拟存储管理器的页面调度.cpp#FIFO
+*/
 //数据结构
 struct {
     int PageNo;

@@ -68,12 +68,12 @@ void memorymanage() {
 
 void runrelease() {
     int i = 0;
-    for (; i < index; i++) {
+    for (; i < index; i++) {//归还区有下临空闲区
         if (fadd + flen == freetab[i].add) {
             freetab[i].add = fadd;
             freetab[i].len += flen;
             break;
-        } else if (freetab[i].add + freetab[i].len == fadd) {
+        } else if (freetab[i].add + freetab[i].len == fadd) {//归还区有上临空闲区
             freetab[i].len += flen;
             break;
         }
